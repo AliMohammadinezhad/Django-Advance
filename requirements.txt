@@ -1,3 +1,6 @@
 django<4.3,>4.2
 python-decouple
 Pillow
+djangorestframework
+markdown
+django-filter
