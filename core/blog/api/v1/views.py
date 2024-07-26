@@ -28,7 +28,7 @@ class PostModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     search_fields = ["title", "content"]
-    filterset_fields = ["category", "author", "status"]
+    filterset_fields = {"category": ["exact", "in"], "author": ["exact"], "status": ["exact"]}
     ordering_fields = ["published_date"]
     pagination_class = DefaultPagination
 

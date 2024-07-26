@@ -13,7 +13,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    brief_content = serializers.ReadOnlyField(source='get_brief_content')
+    brief_content = serializers.ReadOnlyField(source="get_brief_content")
     relative_url = serializers.URLField(source="get_absolute_api_url", read_only=True)
     absolute_url = serializers.HyperlinkedIdentityField(
         view_name="blog:api-v1:post-detail", read_only=True
