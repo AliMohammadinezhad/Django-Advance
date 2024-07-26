@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 from accounts.models import Profile
 
 # getting the current user model
@@ -23,6 +24,13 @@ class Post(models.Model):
     
     def __str__(self) -> str:
         return self.title
+    
+    def get_absolute_api_url(self):
+        return reverse("blog:api-v1:post-detail", kwargs={"pk": self.pk})
+    
+    def get_brief_content(self):
+        return self.content[0:5]
+    
     
     
 class Category(models.Model):
