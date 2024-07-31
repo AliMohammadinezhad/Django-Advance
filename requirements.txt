@@ -1,7 +1,7 @@
 # general modules
 django<4.3,>4.2
 python-decouple
-Pillow
+pillow
 
 # third party modules
 djangorestframework
@@ -9,4 +9,6 @@ markdown
 django-filter
 drf-yasg[validation]
 
+djangorestframework-simplejwt[crypto]
+coreapi
 # deployment modules
