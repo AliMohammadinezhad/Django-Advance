@@ -12,3 +12,7 @@ drf-yasg[validation]
 djangorestframework-simplejwt[crypto]
 coreapi
 # deployment modules
+
+
+# third party email modules
+django-mail-templated
