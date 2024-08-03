@@ -1,19 +1,7 @@
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-from rest_framework import status
-from rest_framework.generics import (
-    ListCreateAPIView,
-    RetrieveUpdateDestroyAPIView,
-    GenericAPIView,
-)
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
-
-from django.shortcuts import get_object_or_404
-
 
 from .serializers import PostSerializer, CategorySerializer
 from .paginations import DefaultPagination
@@ -28,7 +16,11 @@ class PostModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     search_fields = ["title", "content"]
-    filterset_fields = {"category": ["exact", "in"], "author": ["exact"], "status": ["exact"]}
+    filterset_fields = {
+        "category": ["exact", "in"],
+        "author": ["exact"],
+        "status": ["exact"],
+    }
     ordering_fields = ["published_date"]
     pagination_class = DefaultPagination
 

@@ -16,3 +16,7 @@ coreapi
 
 # third party email modules
 django-mail-templated
+
+# reformat and lint
+flake8
+black

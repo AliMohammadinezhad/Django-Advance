@@ -27,7 +27,9 @@ SECRET_KEY = config("SECRET_KEY", default="secret")
 DEBUG = config("DEBUG", cast=bool, default=True)
 
 ALLOWED_HOSTS = config(
-    "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")], default="*"
+    "ALLOWED_HOSTS",
+    cast=lambda v: [s.strip() for s in v.split(",")],
+    default="*",
 )
 
 
@@ -47,8 +49,8 @@ INSTALLED_APPS = [
     "django_filters",
     "drf_yasg",
     "rest_framework_simplejwt",
-    'mail_templated',
-    'djoser'
+    "mail_templated",
+    "djoser",
 ]
 
 MIDDLEWARE = [
@@ -158,7 +160,7 @@ REST_FRAMEWORK = {
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = False
-EMAIL_HOST = 'smtp4dev'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST = "smtp4dev"
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
 EMAIL_PORT = 25

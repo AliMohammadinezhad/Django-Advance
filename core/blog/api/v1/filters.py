@@ -1,4 +1,4 @@
-# smaple code for the filtering 
+# smaple code for the filtering
 
 
 """
@@ -12,7 +12,7 @@ class ProductFilter(filters.FilterSet):
     class Meta:
         model = Product
         fields = ['category', 'in_stock']
-        
+
 class ProductList(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer

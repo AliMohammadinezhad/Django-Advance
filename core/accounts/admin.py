@@ -23,18 +23,20 @@ class CustomUserAdmin(UserAdmin):
                     "is_verified",
                 )
             },
-        ),("Group Permissions",
+        ),
+        (
+            "Group Permissions",
             {
                 "fields": (
                     "groups",
                     "user_permissions",
                 )
-            },),("Important dates",
-            {
-                "fields": (
-                    "last_login",
-                )
-            },),
+            },
+        ),
+        (
+            "Important dates",
+            {"fields": ("last_login",)},
+        ),
     )
     add_fieldsets = (
         (
@@ -48,7 +50,8 @@ class CustomUserAdmin(UserAdmin):
                 ),
             },
         ),
-        ("User Permissions",
+        (
+            "User Permissions",
             {
                 "fields": (
                     "is_staff",
@@ -58,7 +61,8 @@ class CustomUserAdmin(UserAdmin):
                     "groups",
                     "user_permissions",
                 ),
-            }),
+            },
+        ),
     )
 
 

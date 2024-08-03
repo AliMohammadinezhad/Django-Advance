@@ -40,7 +40,8 @@ class RegistrationApiView(generics.GenericAPIView):
             serializer.save()
             email = serializer.validated_data["email"]
             data = {
-                "details": "registration was successfull. check your email for activation",
+                "details": "registration was successfull. check your email\
+                 for activation",
                 "email": email,
             }
 
@@ -87,7 +88,7 @@ class CustomDiscardAuthToken(APIView):
         try:
             request.user.auth_token.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
-        except Token.DoesNotExist as e:
+        except Token.DoesNotExist:
             return Response(
                 {"detail": "You are not authenticated"},
                 status=status.HTTP_401_UNAUTHORIZED,
@@ -111,7 +112,9 @@ class ChangePasswordApiView(generics.GenericAPIView):
         self.object = self.get_object()
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            if not self.object.check_password(serializer.data.get("old_password")):
+            if not self.object.check_password(
+                serializer.data.get("old_password")
+            ):
                 return Response(
                     {"old_password": ["Wrong password"]},
                     status=status.HTTP_400_BAD_REQUEST,
@@ -119,7 +122,8 @@ class ChangePasswordApiView(generics.GenericAPIView):
             self.object.set_password(serializer.data.get("new_password"))
             self.object.save()
             return Response(
-                {"details": "password changed successefully"}, status=status.HTTP_200_OK
+                {"details": "password changed successefully"},
+                status=status.HTTP_200_OK,
             )
         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
@@ -162,19 +166,34 @@ class ActivationApiView(APIView):
     def get(self, request, token, *args, **kwargs):
         """try to retrieve user information from the token."""
         try:
-            token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+            token = jwt.decode(
+                token, settings.SECRET_KEY, algorithms=["HS256"]
+            )
             user_id = token.get("user_id")
         except jwt.exceptions.ExpiredSignatureError:
-            return Response({"details": "token has been expired"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"details": "token has been expired"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         except jwt.exceptions.InvalidSignatureError:
-            return Response({"details": "token is not valid"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"details": "token is not valid"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         user_obj = get_object_or_404(User, pk=user_id)
         if user_obj.is_verified:
-            return Response({"details": "your account has already been verified"})
+            return Response(
+                {"details": "your account has already been verified"}
+            )
         user_obj.is_verified = True
         user_obj.save()
-        return Response({"details": "your account has been verified and activated successfully"})
+        return Response(
+            {
+                "details": "your account has been verified \
+                and activated successfully"
+            }
+        )
 
 
 class ActivationResendApiView(generics.GenericAPIView):
@@ -183,7 +202,7 @@ class ActivationResendApiView(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         serializer = ActivationResendSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user_obj = serializer.validated_data.get('user')
+        user_obj = serializer.validated_data.get("user")
         token = self.get_token_for_user(user_obj)
         email_obj = EmailMessage(
             "email/activation_email.tpl",
