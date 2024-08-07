@@ -17,6 +17,8 @@ coreapi
 # third party email modules
 django-mail-templated
 
-# reformat and lint
+# reformatting and test
 flake8
 black
+pytest
+pytest-django

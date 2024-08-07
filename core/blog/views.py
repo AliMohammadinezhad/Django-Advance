@@ -1,4 +1,5 @@
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Post
 
@@ -12,5 +13,5 @@ class PostListView(ListView):
         return super().get_queryset().filter(status=True)
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
