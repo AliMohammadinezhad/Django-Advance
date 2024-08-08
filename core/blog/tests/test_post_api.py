@@ -13,8 +13,11 @@ def api_client():
 
 @pytest.fixture
 def common_user():
-    user = User.objects.create_user(email="user@example.com", password="password", is_verified=True)
+    user = User.objects.create_user(
+        email="user@example.com", password="password", is_verified=True
+    )
     return user
+
 
 @pytest.mark.django_db
 class TestPostApi:

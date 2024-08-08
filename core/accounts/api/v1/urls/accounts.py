@@ -37,9 +37,7 @@ urlpatterns = [
         views.CustomObtainAuthToken.as_view(),
         name="token-login",
     ),
-    path(
-        "logout/", views.CustomDiscardAuthToken.as_view(), name="token-logout"
-    ),
+    path("logout/", views.CustomDiscardAuthToken.as_view(), name="token-logout"),
     # login jwt
     path(
         "jwt/create/",

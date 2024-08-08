@@ -16,9 +16,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
     status = models.BooleanField()
-    category = models.ForeignKey(
-        "Category", on_delete=models.SET_NULL, null=True
-    )
+    category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True)
 
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
@@ -26,9 +24,9 @@ class Post(models.Model):
 
     def __str__(self) -> str:
         return self.title
-    
+
     def get_absolute_url(self):
-        return reverse("blog:post-detail", kwargs={"pk":self.pk})
+        return reverse("blog:post-detail", kwargs={"pk": self.pk})
 
     def get_absolute_api_url(self):
         return reverse("blog:api-v1:post-detail", kwargs={"pk": self.pk})

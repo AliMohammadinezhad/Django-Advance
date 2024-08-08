@@ -112,9 +112,7 @@ class ChangePasswordApiView(generics.GenericAPIView):
         self.object = self.get_object()
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            if not self.object.check_password(
-                serializer.data.get("old_password")
-            ):
+            if not self.object.check_password(serializer.data.get("old_password")):
                 return Response(
                     {"old_password": ["Wrong password"]},
                     status=status.HTTP_400_BAD_REQUEST,
@@ -166,9 +164,7 @@ class ActivationApiView(APIView):
     def get(self, request, token, *args, **kwargs):
         """try to retrieve user information from the token."""
         try:
-            token = jwt.decode(
-                token, settings.SECRET_KEY, algorithms=["HS256"]
-            )
+            token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
             user_id = token.get("user_id")
         except jwt.exceptions.ExpiredSignatureError:
             return Response(
@@ -183,9 +179,7 @@ class ActivationApiView(APIView):
 
         user_obj = get_object_or_404(User, pk=user_id)
         if user_obj.is_verified:
-            return Response(
-                {"details": "your account has already been verified"}
-            )
+            return Response({"details": "your account has already been verified"})
         user_obj.is_verified = True
         user_obj.save()
         return Response(
